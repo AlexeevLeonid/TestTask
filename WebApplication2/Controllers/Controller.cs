@@ -13,17 +13,8 @@ namespace Test66bit2.Controllers
     public class Controller : ControllerBase
     {
 
-        private readonly IDbVersionator<int> dbVersionator;
         private readonly IDbClient dbClient;
 
-        // GET version
-        [HttpGet("version")]
-        public async Task<string> GetVersion(int id)
-        {
-            return dbVersionator.GetDatabaseVersion().ToString();
-        }
-
-        // GET api/<Controller>/5
         [HttpGet("countries")]
         public async Task<List<string>> GetCountries()
         {
@@ -51,7 +42,6 @@ namespace Test66bit2.Controllers
 
         public Controller(IDbVersionator<int> dbVersionator, IDbClient dbClient)
         {
-            this.dbVersionator = dbVersionator;
             this.dbClient = dbClient;
         }
     }

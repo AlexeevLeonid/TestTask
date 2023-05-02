@@ -1,5 +1,8 @@
-﻿
-function setPostButton() {
+﻿"use strict";
+
+
+function setPostButton(connection) {
+    
     document.getElementById("send").addEventListener("click", async () => {
         const id = document.getElementById("soccerId").value;
         const name = document.getElementById("name").value;
@@ -12,12 +15,13 @@ function setPostButton() {
             alert("Одно из полей пустое")
         else {
             if (id === "") {
-                await postSoccer(name, surname, sex, date, team, country);
+                await postSoccer(name, surname, sex, date, team, country, connection);
             }
             else {
-                await putSoccer(id, name, surname, sex, date, team, country);
+                await putSoccer(id, name, surname, sex, date, team, country, connection);
             }
         }
+
     });
 }
 
@@ -27,11 +31,12 @@ function isEmpty(str) {
     return false;
 }
 
-async function postSoccer(iname, isurname, isex, idate, iteam, icountry) {
+async function postSoccer(iname, isurname, isex, idate, iteam, icountry, connection) {
     const response = await fetch("/soccer", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
+            id: "1",
             name: iname,
             surname: isurname,
             sex: isex,
@@ -41,6 +46,9 @@ async function postSoccer(iname, isurname, isex, idate, iteam, icountry) {
         })
     });
     if (response.status === 200) {
+        await connection.invoke("Refresh").catch(function (err) {
+            return console.error(err.toString());
+        });
         alert("Футболист успешно записан")
     }
     else {
@@ -49,7 +57,7 @@ async function postSoccer(iname, isurname, isex, idate, iteam, icountry) {
     }
 }
 
-async function putSoccer(iid, iname, isurname, isex, idate, iteam, icountry) {
+async function putSoccer(iid, iname, isurname, isex, idate, iteam, icountry, connection) {
     const response = await fetch("/soccer", {
         method: "PUT",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
@@ -64,6 +72,9 @@ async function putSoccer(iid, iname, isurname, isex, idate, iteam, icountry) {
         })
     });
     if (response.ok === true) {
+        await connection.invoke("Refresh").catch(function (err) {
+            return console.error(err.toString());
+        });
         alert("Данные футболиста успешно изменены")
     }
     else {
@@ -84,12 +95,12 @@ async function setSelectValues(selectName, apiUrl) {
     })
 }
 
-async function startup() {
+async function startup(connection) {
     document.getElementById("teamSelect").options[document.getElementById("teamSelect").options.length] = new Option('', '');
     setSelectValues("sex", "/sex")
     setSelectValues("teamSelect", "/teams")
     setSelectValues("country", "/countries")
-    setPostButton();
+    setPostButton(connection);
     OnSelectTeam();
     const query = window.location.search;
     if (query.length > 0) {
@@ -126,4 +137,15 @@ function OnSelectTeam() {
     });
 }
 
-startup();
+
+
+
+var connection = new signalR.HubConnectionBuilder().withUrl("/refresh").build();
+connection.start();
+startup(connection);
+//document.getElementById("send").addEventListener("click", function (event) {
+//    connection.invoke("Refresh").catch(function (err) {
+//        return console.error(err.toString());
+//    });
+//    event.preventDefault();
+//});

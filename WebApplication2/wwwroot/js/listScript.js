@@ -1,12 +1,12 @@
-﻿
+﻿"use strict";
+
+
 async function startup() {
     document.getElementById("version").value = -1
     fillTable()
-    refreshIfNeddedTable()
-    setSelectValues("sex", "/sex")
-    setSelectValues("team", "/teams")
-    setSelectValues("country", "/countries")
-    let timerId = setInterval(() => refreshIfNeddedTable(), 5000);
+    await setSelectValues("sex", "/sex")
+    await setSelectValues("team", "/teams")
+    await setSelectValues("country", "/countries")
 }
 
 async function fillTable() {
@@ -21,23 +21,9 @@ async function fillTable() {
     }
 }
 
-async function refreshIfNeddedTable() {
-    const response = await fetch("/version", {
-        method: "GET",
-        headers: { "Accept": "application/json" }
-    });
-    if (response.ok === true) {
-        const res = await response.json();
-        var versionField = document.getElementById("version");
-        if (versionField.value < 0) {
-            versionField.value = res.version;
-        }
-        if (res.version > versionField.value) {
-            versionField.value = res.version;
-            clearTable();
-            fillTable();
-        }
-    }
+async function refresh() {
+    clearTable();
+    fillTable();
 }
 
 function row(soccer) {
@@ -68,7 +54,6 @@ function row(soccer) {
     const countryTd = document.createElement("td");
     countryTd.append(soccer.country);
     tr.append(countryTd);
-
 
     const linksTd = document.createElement("td");
 
@@ -122,4 +107,9 @@ function clearTable() {
 }
 
 startup();
+var connection = new signalR.HubConnectionBuilder().withUrl("/refresh").build();
+connection.start();
+connection.on("Refresh", function () {
+    refresh();
+});
     

@@ -15,17 +15,12 @@ namespace Test66bit2.Controllers
 
         private readonly IDbVersionator<int> dbVersionator;
         private readonly IDbClient dbClient;
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public async Task<Soccer> Get(int id)
+        [HttpGet("")]
+        public async Task<Soccer> Get()
         {
+            var id = HttpContext.Request.Query["id"];
             var soccer = await dbClient.GetSoccerAsync(id.ToString());
             if (soccer != null)
                 return soccer;
@@ -46,18 +41,18 @@ namespace Test66bit2.Controllers
         }
 
         // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
+        [HttpPut("")]
         public async Task Put([FromBody] Soccer soccer)
         {
-            await dbClient.PostSoccerAsync(soccer);
+            await dbClient.PutSoccerAsync(soccer);
             dbVersionator.СommitDatabaseСhange();
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task Delete(string guid)
         {
-            await dbClient.DeleteSoccerAsync(id.ToString());
+            await dbClient.DeleteSoccerAsync(guid);
             dbVersionator.СommitDatabaseСhange();
         }
 
