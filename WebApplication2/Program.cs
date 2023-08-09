@@ -1,10 +1,10 @@
-using Test66bit2.src.DbVersionators.CountVersionator;
-using Test66bit2.src.DbVersionators;
+using TestTask.src.DbVersionators.CountVersionator;
+using TestTask.src.DbVersionators;
 using Microsoft.EntityFrameworkCore;
-using Test66bit2.src.DbClients.EntityClient;
-using Test66bit2.src.Db;
+using TestTask.src.DbClients.EntityClient;
+using TestTask.src.Db;
 using Test66bit.src.DbClients.EntityClient;
-using Test66bit2.src;
+using TestTask.src;
 
 var builder = WebApplication.CreateBuilder(args);
 

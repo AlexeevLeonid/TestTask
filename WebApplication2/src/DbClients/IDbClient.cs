@@ -1,6 +1,6 @@
-﻿using Test66bit2.src.Model;
+﻿using TestTask.src.Model;
 
-namespace Test66bit2.src.Db
+namespace TestTask.src.Db
 {
     public interface IDbClient
     {

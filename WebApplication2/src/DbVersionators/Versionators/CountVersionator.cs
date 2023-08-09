@@ -1,6 +1,6 @@
-﻿using Test66bit2.src.DbVersionators;
+﻿using TestTask.src.DbVersionators;
 
-namespace Test66bit2.src.DbVersionators.CountVersionator
+namespace TestTask.src.DbVersionators.CountVersionator
 {
     class CountVersionator : IDbVersionator<int>
     {

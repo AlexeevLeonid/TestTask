@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Sockets;
-using Test66bit2.src.Db;
-using Test66bit2.src.DbVersionators;
-using Test66bit2.src.Model;
+using TestTask.src.Db;
+using TestTask.src.DbVersionators;
+using TestTask.src.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Test66bit2.Controllers
+namespace TestTask.Controllers
 {
     [Route("[controller]")]
     [ApiController]

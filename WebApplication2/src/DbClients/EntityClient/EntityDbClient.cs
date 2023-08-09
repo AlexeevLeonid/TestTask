@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using Test66bit2.src.Db;
-using Test66bit2.src.DbClients.EntityClient;
-using Test66bit2.src.Model;
+using TestTask.src.Db;
+using TestTask.src.DbClients.EntityClient;
+using TestTask.src.Model;
 
 namespace Test66bit.src.DbClients.EntityClient
 {

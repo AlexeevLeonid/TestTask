@@ -1,4 +1,4 @@
-﻿namespace Test66bit2.src.Model
+﻿namespace TestTask.src.Model
 {
     public static class SoccerExtension
     {

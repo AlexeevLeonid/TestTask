@@ -1,4 +1,4 @@
-﻿namespace Test66bit2.src.DbVersionators
+﻿namespace TestTask.src.DbVersionators
 {
     public interface IDbVersionator<TValue>
     {

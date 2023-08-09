@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Test66bit2.src
+namespace TestTask.src
 {
     public class RefreshHub : Hub
     {
