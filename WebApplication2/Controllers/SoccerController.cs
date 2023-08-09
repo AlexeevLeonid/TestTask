@@ -22,10 +22,7 @@ namespace TestTask.Controllers
         {
             var id = HttpContext.Request.Query["id"];
             var soccer = await dbClient.GetSoccerAsync(id.ToString());
-            if (soccer != null)
-                return soccer;
-            else
-                return null;
+            return soccer;
         }
 
         // POST api/<ValuesController>
